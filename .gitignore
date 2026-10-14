@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+TestResults/
+
+# IDE
+.vs/
+*.user
+*.suo
+
+# Local token for the .http requests
+.env
+
+# Flows saved by the API at runtime (may contain real data)
+saved-flows*/
+EventFlows/

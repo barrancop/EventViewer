@@ -1,0 +1,30 @@
+# Requests for the REST Client extension (VS Code). Every endpoint needs an Azure AD B2C bearer token:
+# put it in a .env file next to this one (git-ignored) as EVENTVIEWER_TOKEN=<token>
+@host = http://localhost:5189
+@token = {{$dotenv EVENTVIEWER_TOKEN}}
+@correlationId = 00000000-0000-0000-0000-000000000000
+
+### Flow of a CorrelationId
+GET {{host}}/api/eventflow/flow/{{correlationId}}?includeInsightsLogs=true
+Authorization: Bearer {{token}}
+
+### Search flows
+POST {{host}}/api/eventflow/search
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "startDate": "2026-10-14T06:00:00Z",
+  "endDate": "2026-10-14T08:00:00Z",
+  "status": "Failed",
+  "includeInsightsLogs": false,
+  "saveResults": false
+}
+
+### List saved flows
+GET {{host}}/api/eventflow/saved
+Authorization: Bearer {{token}}
+
+### Load a saved flow (use a name returned by the previous request)
+GET {{host}}/api/eventflow/load/EventFlow_00000000_20261014_080000.json
+Authorization: Bearer {{token}}
